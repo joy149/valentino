@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Open When ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Sacramento&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:Poppins;
+    background: linear-gradient(120deg,#ff9a9e,#fad0c4);
+    text-align:center;
+    color:#fff;
+}
+
+h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 60px;
+    margin-top:30px;
+}
+
+.container {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    padding:40px;
+}
+
+.envelope {
+    width:220px;
+    height:160px;
+    background:#fff;
+    color:#ff4d6d;
+    border-radius:10px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+    font-size:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+.envelope:hover { transform:scale(1.1); }
+
+.letter {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+
+.letter-content {
+    position:relative;
+    background:white;
+    color:#333;
+    padding:40px;
+    border-radius:15px;
+    width:70%;
+    max-width:600px;
+    animation:pop 0.5s ease;
+    overflow:hidden;
+}
+
+.close-btn {
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:28px;
+    cursor:pointer;
+    color:#999;
+}
+.close-btn:hover { color:#ff4d6d; }
+
+@keyframes pop {
+    from {transform:scale(0.5);}
+    to {transform:scale(1);}
+}
+
+button {
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff4d6d;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.yes-btn {
+    font-size:22px;
+    padding:15px 30px;
+    margin-right:15px;
+}
+
+/* Images inside letters */
+.letter-img {
+    width:100%;
+    max-width:350px;
+    border-radius:18px;
+    margin-top:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Fade animation */
+.fade-in {
+    animation: fadeIn 2s ease forwards;
+    opacity:0;
+}
+@keyframes fadeIn {
+    from {opacity:0; transform:scale(0.8);}
+    to {opacity:1; transform:scale(1);}
+}
+
+/* Heart confetti */
+.confetti {
+    position:fixed;
+    width:12px;
+    height:12px;
+    top:-10px;
+    animation: fall linear forwards;
+    z-index:9999;
+}
+.confetti::before { content:"💖"; font-size:14px; }
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(360deg); opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Open When 💌</h1>
+<h3>For you ❤️</h3>
+
+<div class="container">
+    <div class="envelope" onclick="openLetter(1)">Open when you're sad</div>
+    <div class="envelope" onclick="openLetter(2)">Open when you miss me</div>
+    <div class="envelope" onclick="openLetter(3)">Open when you can't sleep</div>
+    <div class="envelope" onclick="openLetter(4)">Open when you want to smile</div>
+    <div class="envelope" onclick="openLetter(5)">Open this last ❤️</div>
+</div>
+
+<div class="letter" id="letterBox">
+    <div class="letter-content" id="letterText"></div>
+</div>
+
+<script>
+function openLetter(num){
+    let text="";
+
+    if(num==1){
+        text=`<h2>Hey beautiful ❤️</h2>
+        <p>If you're sad, remember this:</p>
+        <p>You are the strongest, kindest, most amazing person I know.</p>
+        <p>And I'm always here for you. Always.</p>
+        <img src="us.jpeg" class="letter-img">`;
+    }
+
+    if(num==2){
+        text=`<h2>Miss me? 😘</h2>
+        <p>I miss you more.</p>
+        <p>I can't wait for all the hugs, laughs and food dates.</p>
+        <p>You're my favourite person.</p>
+        <img src="miss.jpg" class="letter-img">`;
+    }
+
+    if(num==3){
+        text=`<h2>Can't sleep? 🌙</h2>
+        <p>Close your eyes and imagine us together.</p>
+        <p>Sleep well ❤️</p>
+        <img src="sleep.jpeg" class="letter-img">`;
+    }
+
+    if(num==4){
+        text=`<h2>Smile time 😄</h2>
+        <p>You + Me + Food + Trips = Happiness.</p>
+        <img src="smile.jpg" class="letter-img">`;
+    }
+
+    if(num==5){
+        text=`<h1>❤️</h1>
+        <h2>One last question...</h2>
+        <h2>Will you be my Valentine? 💖</h2>
+        <div style="margin-top:25px;">
+            <button class="yes-btn" onclick="sayYes()">YES 😍</button>
+            <button id="noBtn" onmouseenter="moveNoButton()">No 😢</button>
+        </div>`;
+    }
+
+    document.getElementById("letterText").innerHTML =
+    `<span class="close-btn" onclick="closeLetter()">×</span>` + text;
+
+    document.getElementById("letterBox").style.display="flex";
+}
+
+function closeLetter(){
+    document.getElementById("letterBox").style.display="none";
+}
+
+function sayYes(){
+    document.getElementById("letterText").innerHTML=`
+    <span class="close-btn" onclick="closeLetter()">×</span>
+    <h1 class="fade-in">YAYYYY ❤️❤️❤️</h1>
+    <h2 class="fade-in">I love you so much 😍</h2>
+    <img src="us1.JPG" class="fade-in letter-img">
+    <h2 class="fade-in" style="margin-top:20px;">Best decision ever 💖</h2>`;
+    startConfetti();
+}
+
+function moveNoButton(){
+    const btn=document.getElementById("noBtn");
+    const box=document.querySelector(".letter-content");
+    const boxRect=box.getBoundingClientRect();
+    const maxX=boxRect.width-btn.offsetWidth-20;
+    const maxY=boxRect.height-btn.offsetHeight-20;
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*maxX+"px";
+    btn.style.top=Math.random()*maxY+"px";
+}
+
+function startConfetti(){
+    for(let i=0;i<80;i++){
+        let confetti=document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left=Math.random()*100+"vw";
+        confetti.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(confetti);
+        setTimeout(()=>confetti.remove(),5000);
+    }
+}
+</script>
+
+</body>
+</html>
